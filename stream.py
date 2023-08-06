@@ -10,7 +10,7 @@ def main():
 
     # Create an instance of Roboflow
     rf = Roboflow(api_key="caFNXOrnEdmKjr8A0dhG")
-    project = rf.workspace().project("mushroom-classification-rtq5v")
+    project = rf.workspace().project("myshroomclassifier")
     model = project.version(1).model
 
     # Image uploader
