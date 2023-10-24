@@ -1,2 +1,4 @@
 roboflow
 opencv-python-headless
+transformers
+gradio-client
