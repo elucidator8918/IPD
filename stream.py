@@ -12,9 +12,12 @@ rf = Roboflow(api_key="caFNXOrnEdmKjr8A0dhG")
 project = rf.workspace().project("myshroomclassifier")
 model = project.version(1).model
 client = Client("https://library-samples-zephyr-7b-alpha.hf.space/--replicas/wdbkk/")
-pipe = pipeline("image-classification", model="dima806/mushrooms_image_detection")
 
-
+@st.cache(allow_output_mutation=True)
+def load_image_classification_model():
+    pipe = pipeline("image-classification", model="dima806/mushrooms_image_detection")
+    return pipe
+    
 def mushroom_classification():
     st.title("Mushroom Classification")
     st.write("Upload an image of a mushroom to classify its species.")
@@ -43,6 +46,7 @@ def image_detection_with_chatbot():
     uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
     if uploaded_image is not None:
+        pipe = load_image_classification_model()
         st.image(uploaded_image, caption="Uploaded Image", use_column_width=True)
         image = Image.open(uploaded_image)
         detected_objects = pipe(image)
