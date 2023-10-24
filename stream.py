@@ -10,12 +10,20 @@ from gradio_client import Client
 
 @st.cache_resource
 def load_image_classification_model():
+    pipe = pipeline("image-classification", model="dima806/mushrooms_image_detection")
+    return pipe
+
+@st.cache_resource
+def robo():
     rf = Roboflow(api_key="caFNXOrnEdmKjr8A0dhG")
     project = rf.workspace().project("myshroomclassifier")
     model = project.version(1).model
+    return model
+
+@st.cache_resource
+def zephyr():
     client = Client("https://library-samples-zephyr-7b-alpha.hf.space/--replicas/wdbkk/")
-    pipe = pipeline("image-classification", model="dima806/mushrooms_image_detection")
-    return pipe
+    return client    
     
 def mushroom_classification():
     st.title("Mushroom Classification")
@@ -27,6 +35,7 @@ def mushroom_classification():
         image = Image.open(uploaded_image)
         temp_image = tempfile.NamedTemporaryFile(delete=False, suffix=".jpg")
         image.save(temp_image.name)
+        model = robo()
         output = model.predict(temp_image.name)
         prediction = output.json()
         st.subheader("Mushroom Classification Prediction:")
@@ -53,6 +62,7 @@ def image_detection_with_chatbot():
         st.write(detected_objects)
         chatbot_message = f"Tell me more about the mushroom {detected_objects[0]['label']}"
         system_prompt = "You are a helpful mushroom specialist virtual assistant that answers user's questions with easy to understand words."
+        client = zephyr()
         result = client.predict(
             chatbot_message,
             system_prompt,
