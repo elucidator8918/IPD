@@ -8,13 +8,12 @@ import uuid
 from transformers import pipeline
 from gradio_client import Client
 
-rf = Roboflow(api_key="caFNXOrnEdmKjr8A0dhG")
-project = rf.workspace().project("myshroomclassifier")
-model = project.version(1).model
-client = Client("https://library-samples-zephyr-7b-alpha.hf.space/--replicas/wdbkk/")
-
 @st.cache_resource
 def load_image_classification_model():
+    rf = Roboflow(api_key="caFNXOrnEdmKjr8A0dhG")
+    project = rf.workspace().project("myshroomclassifier")
+    model = project.version(1).model
+    client = Client("https://library-samples-zephyr-7b-alpha.hf.space/--replicas/wdbkk/")
     pipe = pipeline("image-classification", model="dima806/mushrooms_image_detection")
     return pipe
     
