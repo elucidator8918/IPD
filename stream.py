@@ -13,7 +13,7 @@ project = rf.workspace().project("myshroomclassifier")
 model = project.version(1).model
 client = Client("https://library-samples-zephyr-7b-alpha.hf.space/--replicas/wdbkk/")
 
-@st.cache_resource(allow_output_mutation=True)
+@st.cache_resource
 def load_image_classification_model():
     pipe = pipeline("image-classification", model="dima806/mushrooms_image_detection")
     return pipe
