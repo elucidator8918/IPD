@@ -1,4 +1,5 @@
 roboflow
 opencv-python-headless
+torch
 transformers
 gradio-client
