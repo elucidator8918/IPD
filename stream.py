@@ -10,7 +10,7 @@ from gradio_client import Client
 
 @st.cache_resource
 def load_image_classification_model():
-    pipe = pipeline("image-classification", model="dima806/mushrooms_image_detection")
+    pipe = pipeline("image-classification", model="elucidator8918/mushrooms_image_detection")
     return pipe
 
 @st.cache_resource
@@ -23,7 +23,8 @@ def robo():
 @st.cache_resource
 def zephyr():
     client = Client("https://library-samples-zephyr-7b-alpha.hf.space/--replicas/wdbkk/")
-    return client    
+    pipe = pipeline("text-classification", model="manueldeprada/FactCC")
+    return client,pipe
     
 def mushroom_classification():
     st.title("Mushroom Classification")
@@ -62,7 +63,7 @@ def image_detection_with_chatbot():
         st.write(detected_objects)
         chatbot_message = f"Tell me more about the mushroom {detected_objects[0]['label']}"
         system_prompt = "You are a helpful mushroom specialist virtual assistant that answers user's questions with easy to understand words."
-        client = zephyr()
+        client,pipe = zephyr()
         result = client.predict(
             chatbot_message,
             system_prompt,
@@ -75,6 +76,8 @@ def image_detection_with_chatbot():
         )
         st.subheader("Zephrx Response:")
         st.write(result)
+        st.subheader("FactCC Checks")
+        st.write(pipe(result))
 
 def main():
     st.sidebar.title("Navigation")
