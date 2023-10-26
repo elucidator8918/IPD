@@ -10,7 +10,7 @@ from gradio_client import Client
 
 @st.cache_resource
 def load_image_classification_model():
-    pipe = pipeline("image-classification", model="elucidator8918/mushrooms_image_detection")
+    pipe = pipeline("image-classification", model="elucidator8918/VIT_MUSH")
     return pipe
 
 @st.cache_resource
