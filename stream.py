@@ -22,7 +22,7 @@ def robo():
 
 @st.cache_resource
 def zephyr():
-    client = Client("https://library-samples-zephyr-7b-alpha.hf.space/--replicas/wdbkk/")
+    client = Client("https://library-samples-zephyr-7b-alpha.hf.space/--replicas/tsmmf/")
     return client
     
 def mushroom_classification():
