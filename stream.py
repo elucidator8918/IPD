@@ -23,8 +23,7 @@ def robo():
 @st.cache_resource
 def zephyr():
     client = Client("https://library-samples-zephyr-7b-alpha.hf.space/--replicas/wdbkk/")
-    pipe = pipeline("text-classification", model="manueldeprada/FactCC")
-    return client,pipe
+    return client
     
 def mushroom_classification():
     st.title("Mushroom Classification")
@@ -77,7 +76,6 @@ def image_detection_with_chatbot():
         st.subheader("Zephrx Response:")
         st.write(result)
         st.subheader("FactCC Checks")
-        st.write(pipe(result))
 
 def main():
     st.sidebar.title("Navigation")
