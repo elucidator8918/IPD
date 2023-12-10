@@ -62,7 +62,7 @@ def image_detection_with_chatbot():
         st.write(detected_objects)
         chatbot_message = f"Tell me more about the mushroom {detected_objects[0]['label']}"
         system_prompt = "You are a helpful mushroom specialist virtual assistant that answers user's questions with easy to understand words."
-        client,pipe = zephyr()
+        client = zephyr()
         result = client.predict(
             chatbot_message,
             system_prompt,
